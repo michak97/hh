@@ -1,0 +1,16 @@
+:root{
+	--primary-lightness: 70%;
+	--primary-chroma: 40;
+	--primary-hue: 242;
+	
+	--seconday-hue: calc(var(--primary-hue)+180);
+	--tertiary-hue: calc(var(--primary-hue)+90);
+}
+.color-primary{
+	color: lch( var(--primary-lightness) var(--primary-chroma) var(--primary-hue));
+}
+.background-primary{
+	background-color: lch( var(--primary-lightness) var(--primary-chroma) var(--primary-hue) );
+}
+
+
