@@ -1,0 +1,29 @@
+:root{
+	--transition-time: 0.3s;
+	--transition-type: ease;
+	--transition-delay: 0.1s;
+	--transition-amount:30px;
+}
+
+.animated{
+	transition: transform var(--transition-time) var(--transition-type);
+}
+
+.fadeIn{
+	opacity:0;
+	animation: fadeInUp;
+	animation-duration: var(--transition-time);
+	animation-timing-function: var(--transition-type);
+	animation-delay: var(--transition-delay);
+	animation-fill-mode: forwards;
+}
+@keyframes fadeInUp{
+	0%{
+		transform: translate(0,var(--transition-amount));
+		opacity:0.2;
+	}
+	100%{
+		transform: translate(0,0);
+		opacity:1;
+	}
+}

@@ -1,10 +1,10 @@
 :root{
 	--primary-lightness: 70%;
 	--primary-chroma: 40;
-	--primary-hue: 242;
+	--primary-hue: 240;
 	
-	--seconday-hue: calc(var(--primary-hue)+180);
-	--tertiary-hue: calc(var(--primary-hue)+90);
+	--secondary-hue: 60;
+	--tertiary-hue: 150;
 }
 .color-primary{
 	color: lch( var(--primary-lightness) var(--primary-chroma) var(--primary-hue));
@@ -12,5 +12,28 @@
 .background-primary{
 	background-color: lch( var(--primary-lightness) var(--primary-chroma) var(--primary-hue) );
 }
-
-
+.color-secondary{
+	color: lch( var(--primary-lightness) var(--primary-chroma) var(--secondary-hue) );
+}
+#teaser::after{
+	background-color: lch( 10% 50 var(--primary-hue) );
+	content:'';
+	height:100vh;
+	width:100vw;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0.3;
+}
+body{
+	background-color: lch( 98 0 0);
+}
+.text-white path{
+	fill:white;
+}
+.text-white rect{
+	fill:white;
+}
+.text-white polygon{
+	fill:white;
+}

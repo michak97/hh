@@ -1,0 +1,8 @@
+:root{
+	--fixed-width:100px;
+	--fixed-height:100px;
+}
+.svg-fixed > svg{
+	width:var(--fixed-width);
+	height:var(--fixed-height);
+}

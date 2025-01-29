@@ -1,44 +1,104 @@
-{% extends "static_base.html" %}
-{% block title %}
-Startseite
-{% endblock %}
-{% block content %}
-<div>
-{% if teaser %}
-{% endif %}
-{% if header %}
-{% for obj in header %}
-<div class="my-2 background-primary d-flex justify-content-center" style="--primary-chroma:10;--primary-lightness:70;">
-	<span class="fs-1">{{ obj.content }}</span>
-</div>
-{% endfor %}
-{% endif %}
-{% if indextexts %}
-	<div class="d-flex flex-row justify-content-center">
-{% for text in indextexts %}
-	<div class="w-25">
-		<span class="fs-5">{{text.content}}</span>
-	</div>
-{% endfor %}
-	</div>
-{% endif %}
-{% if articles %}
-<div class="my-2 background-primary d-flex flex-row flex-wrap p-3 justify-content-around" style="--primary-chroma:0;--primary-lightness:100;">
-	{% for article in articles %}
-	<div class="shadow-sm w-25 card">
-		<div class="card-header">
-			{{ article.title }}
+{% load static %}
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		<title>Index ⋅ H und H Finanzkanzlei</title>
+		<meta name="viewport" content="width=device-width, inital-scale=1">
+		{% comment %}
+		static css files
+		{% endcomment %}
+		<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static '/css/coloring.css' %}" rel="stylesheet">
+		<link href="{% static '/css/animation.css' %}" rel="stylesheet">
+		<link href="{% static '/css/sizing.css' %}" rel="stylesheet">
+		<link href="{% static '/css/fonts/fontawesome.min.css' %}" rel="stylesheet">
+
+	</head>
+	<body>
+		{% csrf_token %}
+		<script>
+			const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+		</script>
+		{% block content %}
+		<div>
+			{% if teaser %}
+			<div id="teaser" class="vh-100 vw-100" style="background-image: url({{ teaser.image_file }});background-size:cover;">
+				<header class="d-flex flex-row align-items-center p-4 position-absolute vw-100 fadeIn" id="page-header" role="banner" style="z-index:2;">
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>News</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Versicherungen</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Altersvorsorge</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Dienstleistungen</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Über uns</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Anbieter</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Kontakt</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%"><div class="mx-1"><span>Leitsatz</span></div></a>
+					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>LogIn</span></div></a>
+				</header>
+				<div class="position-absolute p-2 mx-4 shadow-sm" style="top:0;right:0;z-index:2; background-color:white; border-radius:0 0 20px 20px;">
+					{{ logo|safe }}
+				</div>
+				<div class="position-absolute p-4" style="z-index:2;bottom:30%;">
+					<div class="text-light d-flex flex-column">
+						<span class="fs-1 fw-bold fadeIn" style="--transition-delay:0.3s;">{{ teaser.text }}</span>
+						<span class="fs-2 fadeIn" style="--transition-delay:0.45s;">{{ teaser.description }}</span>
+					</div>
+					<a class="btn btn-lg btn-primary my-4 fadeIn" style="--transition-delay:0.6s;">Weiterlesen</a>
+				</div>
+			</div>
+			{% endif %}
+			{% if indexcards %}
+			<div class="vw-100 d-flex flex-row justify-content-between background-primary" style="--primary-chroma:20; --primary-lightness:10%;">
+				<div class="d-flex flex-column my-4" style="border-radius:0 20px 20px 0;--primary-chroma:30;--primary-lightness:80%;">
+					{% for card in indexcards %}
+					<div class="d-flex flex-column background-primary justify-content-between align-items-center fadeInLeft svg-fixed my-4 p-4" style="border-radius:0 20px 20px 0;--primary-chroma:30;--primary-lightness:80%;">
+						{{ card.svg|safe  }}
+						<span class="fs-6 py-4">
+						{{ card.text }}
+						</span>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="d-flex flex-row justify-content-center align-items-center"><span>Stuff</span></div>
+			</div>
+			{% endif %}
+
+			{% if articles %}
+			<div class="my-2 d-flex flex-row flex-wrap p-3 justify-content-around">
+				{% for article in articles %}
+				<div class="shadow-sm w-25 card">
+					<div class="card-header">
+						{{ article.title }}
+					</div>
+					<div class="card-body">
+						{{ article.content }}
+					</div>
+					<div class="card-footer d-flex flex-row justify-content-between">
+						<small>{{article.writer}}</small>
+						<small>{{article.pub_date}}</small>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% endif %}
 		</div>
-		<div class="card-body">
-			{{ article.content }}
+		{% endblock %}
+		{% comment %}
+		static javascript files
+		{% endcomment %}
+		<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+	</body>
+	<footer class="my-2 py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
+		<div class="d-flex flex-column">
+			<span class="fw-2">Kontakt</span>
+			<span class="fw-3">H und H Finanzservice</span>
+			<span class="fw-3">info@hh-finanzservice.de</span>
+			<span class="fw-3">+49 123 456 789</span>
+		</div>	
+		<div class="">
+			<span class="fw-2">Service</span>
+
+
 		</div>
-		<div class="card-footer d-flex flex-row justify-content-between">
-			<small>{{article.writer}}</small>
-			<small>{{article.pub_date}}</small>
-		</div>
-	</div>
-	{% endfor %}
-</div>
-{% endif %}
-</div>
-{% endblock %}
+	</footer>
+</html>
