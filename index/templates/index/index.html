@@ -1,104 +1,138 @@
 {% load static %}
 <!doctype html>
 <html lang="de">
-	<head>
-		<meta charset="utf-8">
-		<title>Index ⋅ H und H Finanzkanzlei</title>
-		<meta name="viewport" content="width=device-width, inital-scale=1">
-		{% comment %}
-		static css files
-		{% endcomment %}
-		<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
-		<link href="{% static '/css/coloring.css' %}" rel="stylesheet">
-		<link href="{% static '/css/animation.css' %}" rel="stylesheet">
-		<link href="{% static '/css/sizing.css' %}" rel="stylesheet">
-		<link href="{% static '/css/fonts/fontawesome.min.css' %}" rel="stylesheet">
+  <head>
+    <meta charset="utf-8">
+    <title>Index ⋅ H und H Finanzkanzlei</title>
+    <meta name="viewport" content="width=device-width, inital-scale=1">
+    <link rel="icon" type="image/x-icon" href="{% static '/img/logo/hh_logo.svg' %}"/>
+    {% comment %}
+    static css files
+    {% endcomment %}
+    <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '/css/coloring.css' %}" rel="stylesheet">
+    <link href="{% static '/css/animation.css' %}" rel="stylesheet">
+    <link href="{% static '/css/sizing.css' %}" rel="stylesheet">
+    <link href="{% static '/css/fonts/fontawesome.min.css' %}" rel="stylesheet">
 
-	</head>
-	<body>
-		{% csrf_token %}
-		<script>
-			const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-		</script>
-		{% block content %}
-		<div>
-			{% if teaser %}
-			<div id="teaser" class="vh-100 vw-100" style="background-image: url({{ teaser.image_file }});background-size:cover;">
-				<header class="d-flex flex-row align-items-center p-4 position-absolute vw-100 fadeIn" id="page-header" role="banner" style="z-index:2;">
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>News</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Versicherungen</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Altersvorsorge</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Dienstleistungen</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Über uns</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Anbieter</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>Kontakt</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%"><div class="mx-1"><span>Leitsatz</span></div></a>
-					<a class="text-decoration-none color-secondary text-uppercase" href="#" style="--primary-lightness:80%;"><div class="mx-1"><span>LogIn</span></div></a>
-				</header>
-				<div class="position-absolute p-2 mx-4 shadow-sm" style="top:0;right:0;z-index:2; background-color:rgba(255,255,255,0.5);border-radius:0 0 20px 20px;">
-					{{ logo|safe }}
-				</div>
-				<div class="position-absolute p-4" style="z-index:2;bottom:30%; background:rgba(255,255,255,0.2);backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
-					<div class="text-light d-flex flex-column">
-						<span class="fs-1 fw-bold fadeIn" style="--transition-delay:0.3s;">{{ teaser.text }}</span>
-						<span class="fs-2 fadeIn" style="--transition-delay:0.45s;">{{ teaser.description }}</span>
-					</div>
-					<a class="btn btn-lg btn-primary my-4 fadeIn" style="--transition-delay:0.6s;">Weiterlesen</a>
-				</div>
-			</div>
-			{% endif %}
-			{% if indexcards %}
-			<div class="vw-100 d-flex flex-row justify-content-between background-primary" style="--primary-chroma:20; --primary-lightness:10%;">
-				<div class="d-flex flex-column my-4" style="border-radius:0 20px 20px 0;--primary-chroma:30;--primary-lightness:80%;">
-					{% for card in indexcards %}
-					<div class="d-flex flex-column background-primary justify-content-between align-items-center fadeInLeft svg-fixed my-4 p-4" style="border-radius:0 20px 20px 0;--primary-chroma:30;--primary-lightness:80%;">
-						{{ card.svg|safe  }}
-						<span class="fs-6 py-4">
-						{{ card.text }}
-						</span>
-					</div>
-					{% endfor %}
-				</div>
-				<div class="d-flex flex-row justify-content-center align-items-center"><span>Stuff</span></div>
-			</div>
-			{% endif %}
-
-			{% if articles %}
-			<div class="my-2 d-flex flex-row flex-wrap p-3 justify-content-around">
-				{% for article in articles %}
-				<div class="shadow-sm w-25 card">
-					<div class="card-header">
-						{{ article.title }}
-					</div>
-					<div class="card-body">
-						{{ article.content }}
-					</div>
-					<div class="card-footer d-flex flex-row justify-content-between">
-						<small>{{article.writer}}</small>
-						<small>{{article.pub_date}}</small>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-			{% endif %}
-		</div>
-		{% endblock %}
-		{% comment %}
-		static javascript files
-		{% endcomment %}
-		<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
-	</body>
-	<footer class="my-2 py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
-		<div class="d-flex flex-column">
-			<span class="fw-2">Kontakt</span>
-			<span class="fw-3">H und H Finanzservice</span>
-			<span class="fw-3">info@hh-finanzservice.de</span>
-			<span class="fw-3">+49 123 456 789</span>
-		</div>	
-		<div class="">
-			<span class="fw-2">Service</span>
-
-
-		</div>
-	</footer>
+  </head>
+  <body>
+    {% csrf_token %}
+    <script>
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    </script>
+    {% block content %}
+    <div class="d-sm-block d-md-none position-fixed bottom-0 background-primary z-3 vw-100" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
+      <span class="d-flex flex-row justify-content-end m-3">
+        <span onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)"><i class="fas fa-envelope"></i></span>
+        <span onclick="$(this).toggleClass('active');$('#nav-menu').toggleClass('active');$('#icon-menu').toggleClass('active')" role="button" class="badge badge-primary cursor-pointer">Menü</span>
+      </span>
+    </div>
+    <div id="icon-menu" class="z-1 d-sm-block d-md-none position-fixed vh-25 vw-100 svg-inherit activeFadeInTop background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px)">
+      {{ logo|safe }}
+    </div>
+    <nav id="nav-menu" class="z-1 d-sm-block d-md-none position-fixed flex-column bottom-0 vh-75 vw-100 activeFadeInBottom background-primary">
+      <a role="button" class="vw-100">Blubb</a>
+    </nav>
+    <div>
+      {% if teaser %}
+      <div id="teaser" class="vh-100 vw-100">
+        <img src="{{teaser.image_file}}" class="vh-100 vw-100" style="object-fit: cover; object-position: top;">
+        <div class="d-none d-md-block position-absolute top-0 right-0">
+          {{ logo|safe }}
+        </div>
+        <div class="d-flex vh-100 z-2 position-fixed top-0 end-0 justify-content-center flex-row align-items-center">
+            <span role="button" class="pulsate background-primary d-flex flex-row justify-content-center align-items-center rounded-circle m-2 text-white" onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)" style="bottom:50%; height:32px; width:32px; --transition-time:1s;"><i class="fas fa-envelope"></i></span>
+        </div>
+        <div class="position-absolute hex-pattern vw-100 vh-100 bottom-0 z-1" style="clip-path:polygon(0% 100%, 0% 70%, 100% 100%);"></div>
+        <div class="position-absolute left-0 bottom-0 m-4 fadeIn z-2" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
+          <div class="text-light d-flex flex-column p-4">
+            <span class="fs-2 fw-bold fadeInUp" style="--transition-delay:0.3s;">{{ teaser.text }}</span>
+            <span class="fs-3 fadeInUp" style="--transition-delay:0.45s;">{{ teaser.description }}</span>
+          </div>
+          <a class="btn btn-lg btn-primary m-4 fadeIn" style="--transition-delay:0.6s;">Weiterlesen</a>
+        </div>
+      </div>
+      {% endif %}
+      {% if indexcards %}
+      <div class="vw-100 d-flex flex-row justify-content-between hex-pattern" style="">
+        <div class="d-flex flex-row my-5 justify-content-center align-items-center vw-100 text-light text-white">
+          {% for card in indexcards %}
+          <div class="d-flex flex-column justify-content-between align-items-center fadeIn animated svg-fixed my-4 p-4" style="border-radius:20px;--primary-chroma:30;--primary-lightness:80%;">
+            {{ card.svg|safe  }}
+            <span class="fs-6 py-4">
+              {{ card.text }}
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      <div id="contact-form" class="hex-pattern vh-100 vw-100 d-flex justify-content-center align-items-center">
+        <div class="card" style="backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
+          <div class="card-header d-flex align-items-center justify-content-center">
+            <p class="fs-1 text-primary">Kontakt</p>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-row flex-wrap">
+              <div class="col-md-12 col-lg-6 d-flex flex-column p-2">
+                <label for="firstname">Vorname*</label>
+                <input type="text"/>
+              </div>
+              <div class="col-md-12 col-lg-6 d-flex flex-column p-2">
+                <label for="surname">Nachname*</label>
+                <input type="text"/>
+              </div>
+              <div class="col-md-12 d-flex flex-column p-2">
+                <label for="email">E-Mail-Adresse*</label>
+                <input txpe="text"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if articles %}
+      <div class="my-2 d-flex flex-row flex-wrap p-3 justify-content-around">
+        {% for article in articles %}
+        <div class="shadow-sm w-25 card">
+          <div class="card-header">
+            {{ article.title }}
+          </div>
+          <div class="card-body">
+            {{ article.content }}
+          </div>
+          <div class="card-footer d-flex flex-row justify-content-between">
+            <small>{{article.writer}}</small>
+            <small>{{article.pub_date}}</small>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endblock %}
+    {% comment %}
+    static javascript files
+    {% endcomment %}
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}" defer></script>
+    <script src="{% static '/js/jquery.min.js' %}" defer></script>
+    <script src="{% static '/js/app.js' %}" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+      function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+      }
+    </script>
+  </body>
+  <footer class="my-2 py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
+    <div class="d-flex flex-column">
+      <span class="fw-2">Kontakt</span>
+      <span class="fw-3">H und H Finanzservice</span>
+      <span class="fw-3">info@hh-finanzservice.de</span>
+      <span class="fw-3">+49 123 456 789</span>
+    </div>	
+    <div class="">
+      <span class="fw-2">Service</span>
+    </div>
+  </footer>
 </html>

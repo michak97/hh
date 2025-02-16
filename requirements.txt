@@ -1,0 +1,5 @@
+asgiref==3.8.1
+Django==5.1.5
+-e git+ssh://git@github.com/michak97/hh.git@84b95fb265d04d21a8f83ef19b2fdba57a833e96#egg=hh
+pillow==11.1.0
+sqlparse==0.5.3
