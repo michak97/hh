@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from news.models import Article
-from index.models import Teaser, Content, TeaserIcon, IndexCard
+from index.models import Teaser, TeaserIcon, IndexCard
+from articles.models import Category, Content
 from administration.models import Logo
 from django.utils.safestring import mark_safe
 
