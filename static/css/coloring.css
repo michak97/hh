@@ -15,6 +15,9 @@
 .color-secondary{
 	color: lch( var(--primary-lightness) var(--primary-chroma) var(--secondary-hue) );
 }
+.background-secondary{
+  background-color: lch( var(--primary-lightness) var(--primary-chroma) var(--secondary-hue)  / var(--opacity));
+}
 #teaser::after{
 	background-color: lch( 10% 50 var(--primary-hue) );
 	content:'';

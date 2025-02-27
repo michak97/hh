@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Article(models.Model):
+class News(models.Model):
     writer = models.ForeignKey(User, on_delete = models.PROTECT)
     title = models.CharField(max_length=200, verbose_name="Titel")
     content = models.CharField(max_length=2048, verbose_name="Inhalt")

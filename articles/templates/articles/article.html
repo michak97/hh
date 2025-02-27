@@ -1,0 +1,33 @@
+{% extends 'static_base.html' %}
+{% block content %}
+<div class="d-flex background-primary min-vh-100 vw-100" style="--primary-lightness:90%;--primary-chroma:0;">
+  <div class="z-1 vh-100 w-100 hex-pattern" style="clip-path:polygon(0% 50%, 0% 0%, 100% 0%);--primary-lightness:5%;--primary-chroma:40;">
+  </div>
+  <div class="p-4 z-1 position-absolute" style="width:33%;background:rgba(255,255,255,0.4);backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;top:15%; left:5%;">
+    <h1 class="text-light fadeInLeft" style="--transition-delay:0.5s;">{{ article.category.title }}</h1>
+    <h2 class="text-light fadeInLeft" style="--transition-delay:0.5s;">{{ article.title }}</h2>
+    <small class="my-2 text-light fadeInLeft" style="--transition-delay:0.5s;">{{article.writer.first_name }} {{article.writer.last_name }}</small><br>
+    <span class="my-2 text-light fadeInLeft" style="--transition-delay:0.5s;"><i class="fas fa-clock"></i><span id="read_time" class="px-2">0</span><span></span>min</span>
+  </div>
+  <div class="position-absolute vh-100 vw-100 d-flex flex-row background-primary justify-content-center">
+    <div class="shadow-sm background-primary" style="--primary-lightness:95%; width:80%; height:100%">
+      <div id="article" class="position-absolute px-4" style="top:50%; width:80%; height:50%;">
+        {{ article.content }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+function readingTime() {
+  const text = document.getElementById("article").innerText;
+  const wpm = 225;
+  const words = text.trim().split(/\s+/).length;
+  const time = Math.ceil(words / wpm);
+  document.getElementById("read_time").innerText = time;
+}
+readingTime();
+</script>
+{% endblock %}
+

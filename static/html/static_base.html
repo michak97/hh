@@ -1,54 +1,105 @@
 {% load static %}
 <!doctype html>
 <html lang="de">
-	<head>
-		<meta charset="utf-8">
-		<title>{% block title %}{% endblock %} ⋅ H und H Finanzkanzlei </title>
-		<meta name="viewport" content="width=device-width, inital-scale=1">
-		{% comment %}
-			static css files
-		{% endcomment %}
-		<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
-		<link href="{% static '/css/coloring.css' %}" rel="stylesheet">
-	</head>
-	<body>
-	{% csrf_token %}
-		<script>
-			const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-		</script>
-	<div class="page-wrapper">
-		<div class="page-inner">
-				<header class="d-flex flex-row justify-content-end align-items-center mt-4 me-4" id="page-header" role="banner">
-					<a class="text-decoration-none color-secondary" href="#"><div class="mx-1"><span>News</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Versicherungen</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Altersvorsorge</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Dienstleistungen</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Über uns</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Anbieter</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Kontakt</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>Leitsatz</span></div></a>
-					<a class="text-decoration-none" href="#"><div class="mx-1"><span>LogIn</span></div></a>
-				</header>
-			{% block content %}
-			{% endblock %}
-		</div>
-	</div>
-	{% comment %}
-		static javascript files
-	{% endcomment %}
-			<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
-	</body>
-	<footer class="my-2 py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
-		<div class="d-flex flex-column">
-			<span class="fw-2">Kontakt</span>
-			<span class="fw-3">H und H Finanzservice</span>
-			<span class="fw-3">info@hh-finanzservice.de</span>
-			<span class="fw-3">+49 123 456 789</span>
-		</div>	
-		<div class="">
-			<span class="fw-2">Service</span>
+  <head>
+    <meta charset="utf-8">
+    <title>Index ⋅ H und H Finanzkanzlei</title>
+    <meta name="viewport" content="width=device-width, inital-scale=1">
+    <link rel="icon" type="image/x-icon" href="{% static '/img/logo/hh_logo.svg' %}"/>
+    {% comment %}
+    static css files
+    {% endcomment %}
+    <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '/css/coloring.css' %}" rel="stylesheet">
+    <link href="{% static '/css/animation.css' %}" rel="stylesheet">
+    <link href="{% static '/css/sizing.css' %}" rel="stylesheet">
+    <link href="{% static '/css/fonts/fontawesome.min.css' %}" rel="stylesheet">
 
+  </head>
+  <body>
+    {% csrf_token %}
+    <script>
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    </script>
+    
+    <div class="d-sm-block d-md-none position-fixed bottom-0 background-primary z-3 vw-100" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
+      <span class="d-flex flex-row justify-content-end m-3">
+        <span onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)"><i class="fas fa-envelope"></i></span>
+        <span onclick="$(this).toggleClass('active');$('#nav-menu').toggleClass('active');$('#icon-menu').toggleClass('active')" role="button" class="badge badge-primary cursor-pointer">Menü</span>
+      </span>
+    </div>
+    <div id="icon-menu" class="z-1 d-sm-block d-md-none position-fixed vh-25 vw-100 svg-inherit activeFadeInTop" style="background:rgba(255,255,255,0.2);-opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px)">
+      {{ logo|safe }}
+    </div>
+    <nav id="mobile-nav-menu" class="z-1 d-sm-block d-md-none position-fixed flex-column bottom-0 vh-75 vw-100 activeFadeInBottom background-primary">
+      <a role="button" class="vw-100">Blubb</a>
+    </nav>
+    <div>
+      <nav id="nav-menu" class="fadeInLeft z-3 p-2 m-3 shadow-sm d-none d-md-block position-absolute flex-row top-0 background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
+        <a class="text-decoration-none" href="/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Home</span></a>
+        {% for cat in categories %}
+        <a class="fadeInLeft text-decoration-none" href="{{ cat.get_absolute_url }}"><span class="text-decoration-none color-secondary fs-5 mx-2" style="--primary-chroma:30;--primary-lightness:70%">{{ cat.title }}</span></a>
+        {% endfor %}
+        <a class="text-decoration-none" href="/admin/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Login</span></a>
+      </nav>
+        <div class="d-flex vh-100 z-2 position-fixed top-0 end-0 justify-content-center flex-row align-items-center">
+          <span role="button" class="pulsate background-secondary d-flex flex-row justify-content-center align-items-center rounded-circle m-3 text-white" onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)" style="bottom:50%; height:50px; width:50px; --transition-time:1s; --primary-chroma:20;--primary-lightness:70%;"><i class="fs-5 fas fa-envelope"></i></span>
+        </div>
+      {% block content %}
 
-		</div>
-	</footer>
+      {% endblock %}
+      <div id="contact-form" class="vh-100 hex-pattern d-flex justify-content-center align-items-center">
+        <div class="card" style="backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
+          <div class="card-header d-flex align-items-center justify-content-center">
+            <p class="fs-1 text-primary">Kontakt</p>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-row flex-wrap">
+              <div class="col-12 col-lg-6 d-flex flex-column p-2">
+                <label for="firstname">Vorname*</label>
+                <input type="text"/>
+              </div>
+              <div class="col-12 col-lg-6 d-flex flex-column p-2">
+                <label for="surname">Nachname*</label>
+                <input type="text"/>
+              </div>
+              <div class="col-12 d-flex flex-column p-2">
+                <label for="email">E-Mail-Adresse*</label>
+                <input txpe="text"/>
+              </div>
+              <div class="col-12 d-flex flex-column p-2">
+                <label for="message">Nachricht*</label>
+                <input txpe="textbox"/>
+              </div>
+              <div class="d-flex flex-row p-2 justify-content-center align-items-center">
+                <button class="btn btn-outline-primary">abschicken</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}" defer></script>
+    <script src="{% static '/js/jquery.min.js' %}" defer></script>
+    <script src="{% static '/js/app.js' %}" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+      function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+      }
+    </script>
+    {% block javascript %}
+    {% endblock %}
+  </body>
+  <footer class="py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
+    <div class="d-flex flex-column">
+      <span class="fw-2">Kontakt</span>
+      <span class="fw-3">H und H Finanzservice</span>
+      <span class="fw-3">info@hh-finanzservice.de</span>
+      <span class="fw-3">+49 123 456 789</span>
+    </div>	
+    <div class="">
+      <span class="fw-2">Service</span>
+    </div>
+  </footer>
 </html>

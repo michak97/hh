@@ -22,43 +22,51 @@
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     </script>
     {% block content %}
+
     <div class="d-sm-block d-md-none position-fixed bottom-0 background-primary z-3 vw-100" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
       <span class="d-flex flex-row justify-content-end m-3">
         <span onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)"><i class="fas fa-envelope"></i></span>
         <span onclick="$(this).toggleClass('active');$('#nav-menu').toggleClass('active');$('#icon-menu').toggleClass('active')" role="button" class="badge badge-primary cursor-pointer">Menü</span>
       </span>
     </div>
-    <div id="icon-menu" class="z-1 d-sm-block d-md-none position-fixed vh-25 vw-100 svg-inherit activeFadeInTop background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px)">
+    <div id="icon-menu" class="z-1 d-sm-block d-md-none position-fixed vh-25 vw-100 svg-inherit activeFadeInTop" style="background:rgba(255,255,255,0.2);-opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px)">
       {{ logo|safe }}
     </div>
-    <nav id="nav-menu" class="z-1 d-sm-block d-md-none position-fixed flex-column bottom-0 vh-75 vw-100 activeFadeInBottom background-primary">
+    <nav id="mobile-nav-menu" class="z-1 d-sm-block d-md-none position-fixed flex-column bottom-0 vh-75 vw-100 activeFadeInBottom background-primary">
       <a role="button" class="vw-100">Blubb</a>
     </nav>
     <div>
+      <nav id="nav-menu" class="animated fadeInLeft z-3 p-2 m-3 shadow-sm d-none d-md-block position-absolute flex-row top-0 background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
+        <a class="text-decoration-none" href="/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Home</span></a>
+        {% for cat in categories %}
+        <a class="animated fadeInLeft text-decoration-none" href="{{ cat.get_absolute_url }}"><span class="text-decoration-none color-secondary fs-5 mx-2" style="--primary-chroma:30;--primary-lightness:70%">{{ cat.title }}</span></a>
+        {% endfor %}
+        <a class="text-decoration-none" href="/admin/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Login</span></a>
+      </nav>
       {% if teaser %}
       <div id="teaser" class="vh-100 vw-100">
         <img src="{{teaser.image_file}}" class="vh-100 vw-100" style="object-fit: cover; object-position: top;">
-        <div class="d-none d-md-block position-absolute top-0 right-0">
+        <div class="animated d-none d-md-block position-absolute top-0 end-0 m-4 p-2 fadeInTop" style="background:rgba(255,255,255,0.4);backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
           {{ logo|safe }}
         </div>
         <div class="d-flex vh-100 z-2 position-fixed top-0 end-0 justify-content-center flex-row align-items-center">
-            <span role="button" class="pulsate background-primary d-flex flex-row justify-content-center align-items-center rounded-circle m-2 text-white" onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)" style="bottom:50%; height:32px; width:32px; --transition-time:1s;"><i class="fas fa-envelope"></i></span>
+          <span role="button" class="pulsate background-secondary d-flex flex-row justify-content-center align-items-center rounded-circle m-3 text-white" onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)" style="bottom:50%; height:50px; width:50px; --transition-time:1s; --primary-chroma:20;--primary-lightness:70%;"><i class="fs-5 fas fa-envelope"></i></span>
         </div>
         <div class="position-absolute hex-pattern vw-100 vh-100 bottom-0 z-1" style="clip-path:polygon(0% 100%, 0% 70%, 100% 100%);"></div>
-        <div class="position-absolute left-0 bottom-0 m-4 fadeIn z-2" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
+        <div class="animated position-absolute left-0 bottom-0 m-4 fadeInLeft z-2" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
           <div class="text-light d-flex flex-column p-4">
-            <span class="fs-2 fw-bold fadeInUp" style="--transition-delay:0.3s;">{{ teaser.text }}</span>
-            <span class="fs-3 fadeInUp" style="--transition-delay:0.45s;">{{ teaser.description }}</span>
+            <span class="fs-2 fw-bold" style="--transition-delay:0.3s;">{{ teaser.text }}</span>
+            <span class="fs-3" style="--transition-delay:0.45s;">{{ teaser.description }}</span>
           </div>
-          <a class="btn btn-lg btn-primary m-4 fadeIn" style="--transition-delay:0.6s;">Weiterlesen</a>
+          <a class="btn btn-lg btn-primary m-4" style="--transition-delay:0.6s;">Weiterlesen</a>
         </div>
       </div>
       {% endif %}
       {% if indexcards %}
       <div class="vw-100 d-flex flex-row justify-content-between hex-pattern" style="">
-        <div class="d-flex flex-row my-5 justify-content-center align-items-center vw-100 text-light text-white">
+        <div class="d-flex flex-row my-4 justify-content-center align-items-center vw-100 text-light text-white">
           {% for card in indexcards %}
-          <div class="d-flex flex-column justify-content-between align-items-center fadeIn animated svg-fixed my-4 p-4" style="border-radius:20px;--primary-chroma:30;--primary-lightness:80%;">
+          <div class="animated d-flex flex-column justify-content-between align-items-center fadeInLeft animated svg-fixed my-4 p-4" style="border-radius:20px;--primary-chroma:30;--primary-lightness:80%;">
             {{ card.svg|safe  }}
             <span class="fs-6 py-4">
               {{ card.text }}
@@ -68,43 +76,42 @@
         </div>
       </div>
       {% endif %}
-      <div id="contact-form" class="hex-pattern vh-100 vw-100 d-flex justify-content-center align-items-center">
+      <div id="contact-form" class=" vh-100 py-4 hex-pattern vw-100 d-flex justify-content-center align-items-center">
         <div class="card" style="backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
           <div class="card-header d-flex align-items-center justify-content-center">
             <p class="fs-1 text-primary">Kontakt</p>
           </div>
           <div class="card-body">
             <div class="d-flex flex-row flex-wrap">
-              <div class="col-md-12 col-lg-6 d-flex flex-column p-2">
+              <div class="col-12 col-lg-6 d-flex flex-column p-2">
                 <label for="firstname">Vorname*</label>
                 <input type="text"/>
               </div>
-              <div class="col-md-12 col-lg-6 d-flex flex-column p-2">
+              <div class="col-12 col-lg-6 d-flex flex-column p-2">
                 <label for="surname">Nachname*</label>
                 <input type="text"/>
               </div>
-              <div class="col-md-12 d-flex flex-column p-2">
+              <div class="col-12 d-flex flex-column p-2">
                 <label for="email">E-Mail-Adresse*</label>
                 <input txpe="text"/>
+              </div>
+              <div class="col-12 d-flex flex-column p-2">
+                <label for="message">Nachricht*</label>
+                <input txpe="textbox"/>
+              </div>
+              <div class="d-flex flex-row p-2 justify-content-center align-items-center">
+                <button class="btn btn-outline-primary">abschicken</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {% if articles %}
-      <div class="my-2 d-flex flex-row flex-wrap p-3 justify-content-around">
-        {% for article in articles %}
-        <div class="shadow-sm w-25 card">
-          <div class="card-header">
-            {{ article.title }}
-          </div>
-          <div class="card-body">
-            {{ article.content }}
-          </div>
-          <div class="card-footer d-flex flex-row justify-content-between">
-            <small>{{article.writer}}</small>
-            <small>{{article.pub_date}}</small>
-          </div>
+      {% if news %}
+      <div class="m-4 d-flex flex-row flex-wrap p-3 justify-content-around">
+        {% for article in news %}
+        <div class="p-4 shadow-sm w-25 background-primary rounded-5 animated fadeInLeft" style="--primary-lightness:20%;">
+          <p class="fs-5 text-light">{{ article.title }}</p>
+          <p class="text-light">{{ article.content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
         </div>
         {% endfor %}
       </div>
@@ -122,9 +129,23 @@
       function onSubmit(token) {
         document.getElementById("demo-form").submit();
       }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('animate');
+          }
+          else{
+            entry.target.classList.remove('animate');
+          }
+        })
+      })
+      const animatedElements = document.querySelectorAll('.animated');
+      console.log(animatedElements);
+      animatedElements.forEach((el) => observer.observe(el));
     </script>
+
   </body>
-  <footer class="my-2 py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
+  <footer class="py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
     <div class="d-flex flex-column">
       <span class="fw-2">Kontakt</span>
       <span class="fw-3">H und H Finanzservice</span>
