@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from tinymce import models as tinymce
 
 class Category(models.Model):
     title= models.CharField(max_length=200)
@@ -13,15 +14,15 @@ class Category(models.Model):
         return reverse('read_article', kwargs={"article_id": main_article.pk})
 
 class Article(models.Model):
-    writer = models.ForeignKey(User, on_delete = models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    writer = models.ForeignKey(User, on_delete = models.PROTECT, verbose_name="Autor")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Kategorie")
     title = models.CharField(max_length=200, verbose_name="Titel")
-    content = models.CharField(max_length=2048, verbose_name="Inhalt")
+    content = tinymce.HTMLField(max_length=2048, verbose_name="Inhalt")
     pub_date = models.DateTimeField(verbose_name="Veröffentlichungsdatum")
     end_date = models.DateTimeField(verbose_name="Ablaufdatum")
-    is_published = models.BooleanField(default=False)
-    draft = models.BooleanField(default=False)
-    main_article = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=False, verbose_name="veröffentlicht")
+    draft = models.BooleanField(default=False, verbose_name="Entwurf")
+    main_article = models.BooleanField(default=False, verbose_name="Hauptartikel")
 
     def __str__(self):
         return self.title

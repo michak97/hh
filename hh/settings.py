@@ -47,6 +47,8 @@ MEDIA_ROOT = BASE_DIR /'media'
 # Application definition
 
 INSTALLED_APPS = [
+    'tinymce',
+    'jazzmin',
     'news.apps.NewsConfig',
     'administration.apps.AdministrationConfig',
     'articles.apps.ArticlesConfig',

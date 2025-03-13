@@ -24,7 +24,8 @@ urlpatterns = [
     path("news/", include("news.urls")),
     path("", include("index.urls")),
     path('admin/', admin.site.urls),
-    path('administration/', include('administration.urls'))
+    path('administration/', include('administration.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:
