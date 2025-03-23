@@ -2,9 +2,9 @@
 <!doctype html>
 <html lang="de">
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" charset="utf-8">
     <title>Index ⋅ H und H Finanzkanzlei</title>
-    <meta name="viewport" content="width=device-width, inital-scale=1">
+    <meta name="viewport" content="text/html, width=device-width, inital-scale=1">
     <link rel="icon" type="image/x-icon" href="{% static '/img/logo/hh_logo.svg' %}"/>
     {% comment %}
     static css files
@@ -24,7 +24,7 @@
     
     <div class="d-sm-block d-md-none position-fixed bottom-0 background-primary z-3 vw-100" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
       <span class="d-flex flex-row justify-content-end m-3">
-        <span onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)"><i class="fas fa-envelope"></i></span>
+        <span onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 500)"><i class="fas fa-envelope"></i></span>
         <span onclick="$(this).toggleClass('active');$('#nav-menu').toggleClass('active');$('#icon-menu').toggleClass('active')" role="button" class="badge badge-primary cursor-pointer">Menü</span>
       </span>
     </div>
@@ -43,12 +43,12 @@
         <a class="text-decoration-none" href="/admin/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Login</span></a>
       </nav>
         <div class="d-flex vh-100 z-2 position-fixed top-0 end-0 justify-content-center flex-row align-items-center">
-          <span role="button" class="pulsate background-secondary d-flex flex-row justify-content-center align-items-center rounded-circle m-3 text-white" onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 2000)" style="bottom:50%; height:50px; width:50px; --transition-time:1s; --primary-chroma:20;--primary-lightness:70%;"><i class="fs-5 fas fa-envelope"></i></span>
+          <span role="button" class="pulsate background-secondary d-flex flex-row justify-content-center align-items-center rounded-circle m-3 text-white" onclick="$('html, body').animate({scrollTop: $('#contact-form').offset().top}, 500)" style="bottom:50%; height:50px; width:50px; --transition-time:1s; --primary-chroma:20;--primary-lightness:70%;"><i class="fs-5 fas fa-envelope"></i></span>
         </div>
       {% block content %}
 
       {% endblock %}
-      <div id="contact-form" class="vh-100 hex-pattern d-flex justify-content-center align-items-center">
+      <div id="contact-form" class="p-4 hex-pattern d-flex justify-content-center align-items-center" style="min-height:100vh;">
         <div class="card" style="backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);border-radius:16px;">
           <div class="card-header d-flex align-items-center justify-content-center">
             <p class="fs-1 text-primary">Kontakt</p>
@@ -87,19 +87,36 @@
       function onSubmit(token) {
         document.getElementById("demo-form").submit();
       }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('animate');
+          }
+          else{
+            entry.target.classList.remove('animate');
+          }
+        })
+      })
+      const animatedElements = document.querySelectorAll('.animate');
+      console.log(animatedElements);
+      animatedElements.forEach((el) => observer.observe(el));
     </script>
     {% block javascript %}
     {% endblock %}
   </body>
-  <footer class="py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center" style="min-height:10vh">
+  <footer class="py-2 w-100 background-primary d-flex flex-row justify-content-around align-content-center text-white" style="min-height:10vh">
     <div class="d-flex flex-column">
       <span class="fw-2">Kontakt</span>
       <span class="fw-3">H und H Finanzservice</span>
       <span class="fw-3">info@hh-finanzservice.de</span>
       <span class="fw-3">+49 123 456 789</span>
     </div>	
-    <div class="">
+    <div class="d-flex flex-column">
       <span class="fw-2">Service</span>
+      <a href="{% url 'privacy_policy_detail' %}" class="fw-3">Datenschutzerklärung</a>
+      <a href="#" class="fw-3">Sitemap</a>
+      <a href="#contact-form" class="fw-3">Kontakt</a>
+      <a href="{% url 'imprint_detail' %}" class="fw-3">Impressum</a>
     </div>
   </footer>
 </html>

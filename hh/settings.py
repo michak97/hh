@@ -41,12 +41,16 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+SITE_ID=1
+
 MEDIA_URL='/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'tinymce',
     'jazzmin',
     'news.apps.NewsConfig',

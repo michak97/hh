@@ -15,15 +15,15 @@
     </div>
   </div>
 </div>
-<div class="w-100 d-flex flex-row justify-content-center align-items-center hex-pattern" style="min-height:100vh">
+<div class="w-100 d-flex flex-row justify-content-center align-items-center hex-pattern" style="min-height:50vh">
   <div class="p-4 hex-pattern w-100" style="--primary-lightness:5%;">
     <h2 class="animate fadeIn text-white text-center">Weitere Artikel</h2>
     <div class="animate fadeIn d-flex flex-row justify-content-around align-items-center p-4">
       {% for article in further_articles %}
-      <div class="background-primary rounded animate fadeIn p-4 text-white m-3" style="width:30%;--primary-lightness:20%;--transition-delay:0.{{forloop.counter}}s">
+      <div class="background-primary rounded animate fadeIn p-4 text-white m-3" style="--primary-lightness:20%;--transition-delay:0.{{forloop.counter}}s">
         <h3 class="text-white">{{article.title}}</h3>
         <hr>
-        <p class="text-white">{{ article.stripped_content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
+        <p class="text-white">{{ article.stripped_content|truncatechars:"200"|safe }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
       </div>
       {% endfor %}
     </div>
