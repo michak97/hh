@@ -1,0 +1,56 @@
+volumes:
+  mysql_data_dev: {}
+  mysql_backup_dev: {}
+  static_files: {}
+  tmp_files: {}
+  media: {}
+  private-media: {}
+
+services:
+  mysql:
+    build: ./compose/sql
+    volumes:
+      - mysql_data_dev:/var/lib/mysql
+      - mysql_backup_dev:/backups
+    env_file: .env
+    restart: unless-stopped
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+      args:
+        - PRIV_SSH_KEY
+        - GIT_ECDSA_KEY_FINGERPRINT
+    image: hh_django
+    volumes:
+      - .:/app
+      - static_files:/app/staticfiles
+      - tmp_files:/app/tmp
+    user: django
+    depends_on:
+      - mysql
+    command: /gunicorn.sh
+    env_file: .env
+    environment:
+      - ENVIRONMENT=production
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./compose/nginx/
+      dockerfile: ./Dockerfile
+      args:
+        - HTTP_AUTH_LOGIN=$HTTP_AUTH_LOGIN
+        - HTTP_AUTH_PASSWORD=$HTTP_AUTH_PASSWORD
+        - ENVIRONMENT=production
+    volumes:
+      - static_files:/app/staticfiles
+    depends_on:
+      - django
+    ports:
+      - "0.0.0.0:8000:8000"
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:81:81"
+      - "0.0.0.0:88:88"
+      - "0.0.0.0:443:443"

@@ -11,30 +11,32 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
+ROOT_DIR = (
+    environ.Path(__file__) - 2
+)
+APPS_DIR = ROOT_DIR.path()
+SITE_ROOT = str(ROOT_DIR)
+
+env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^!v6=d99fv@s%znw4t_&-+6m&)!)^5wofhfph7p_!2$q%+nq4!'
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
-STATIC_URL="/static"
-
-STATIC_ROOT=""
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-                   )
+STATIC_ROOT = str(ROOT_DIR("staticfiles"))
+STATIC_URL="/app/static/"
+STATICFILES_DIRS = (str(ROOT_DIR("static/")),)
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'tinymce',
     'jazzmin',
+    'gunicorn',
     'news.apps.NewsConfig',
     'administration.apps.AdministrationConfig',
     'articles.apps.ArticlesConfig',
@@ -76,6 +79,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'hh.urls'
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "js/tiny_mce.js")
 
 TEMPLATES = [
     {
@@ -101,10 +106,16 @@ WSGI_APPLICATION = 'hh.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": env("MYSQL_DATABASE", default="support3"),
+        "USER": env("MYSQL_USER", default="root"),
+        "PASSWORD": env("MYSQL_PASSWORD", default="mysecretpass"),
+        "HOST": "mysql",
+        "PORT": "",
+        "ATOMIC_REQUESTS": True,
+        "OPTIONS": {"charset": "utf8mb4"},
+    },
 }
 
 
@@ -130,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'de-de'
 
 TIME_ZONE = 'UTC'
 
@@ -142,7 +153,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
