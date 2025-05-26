@@ -17,7 +17,6 @@ RUN apt-get update \
 RUN groupadd -g 2000 django \
     && useradd -ms /bin/bash -g django django
 
-
 COPY . /app
 
 RUN if [ ! -d "app/staticfiles" ]; then mkdir app/staticfiles; fi 

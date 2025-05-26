@@ -121,7 +121,16 @@
           </div>
         </div>
       </div>
-
+      {% if news %}
+      <div class="d-flex flex-row flex-wrap p-3 justify-content-around background-primary hex-pattern">
+        {% for article in news %}
+        <div class="p-4 shadow-sm w-25 background-primary rounded-5 animated fadeInLeft" style="--primary-lightness:20%;">
+          <p class="fs-5 text-light">{{ article.title }}</p>
+          <p class="text-light">{{ article.content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
     {% endblock %}
     {% comment %}
