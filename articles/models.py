@@ -12,10 +12,6 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        main_article = Article.objects.filter(category=self, main_article=True).first()
-        return reverse('read_article', kwargs={"article_id": main_article.pk})
-
 class ArticleTemplate(models.Model):
     title=models.CharField(max_length=64, verbose_name="Name")
     template=models.CharField(max_length=128, verbose_name="TemplateDirectory")
@@ -33,7 +29,6 @@ class Article(models.Model):
     end_date = models.DateTimeField(verbose_name="Ablaufdatum")
     is_published = models.BooleanField(default=False, verbose_name="veröffentlicht")
     draft = models.BooleanField(default=False, verbose_name="Entwurf")
-    main_article = models.BooleanField(default=False, verbose_name="Hauptartikel")
 
     def __str__(self):
         return self.title

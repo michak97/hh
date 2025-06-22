@@ -12,8 +12,12 @@ dependencies = [
     "django-jazzmin (>=3.0.1,<4.0.0)",
     "django-tinymce (>=4.1.0,<5.0.0)",
     "gunicorn (>=23.0.0,<24.0.0)",
+<<<<<<< HEAD
     "mysqlclient (>=2.2.7,<3.0.0)",
     "django-environ (>=0.4,<1)",
+=======
+    "datetime (>=5.5,<6.0)",
+>>>>>>> 052a1d5 (FEAT: few features for hh)
 ]
 [tool.poetry.dependencies]
 python = "^3.13"

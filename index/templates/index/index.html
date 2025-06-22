@@ -39,7 +39,7 @@
       <nav id="nav-menu" class="animate fadeInLeft z-3 p-2 m-3 shadow-sm d-none d-md-block position-absolute flex-row top-0 background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
         <a class="text-decoration-none" href="/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Home</span></a>
         {% for cat in categories %}
-        <a class="animate fadeInLeft text-decoration-none" href="{{ cat.get_absolute_url }}"><span class="text-decoration-none color-secondary fs-5 mx-2" style="--primary-chroma:30;--primary-lightness:70%">{{ cat.title }}</span></a>
+        <a class="animate fadeInLeft text-decoration-none" data-bs-><span class="text-decoration-none color-secondary fs-5 mx-2" style="--primary-chroma:30;--primary-lightness:70%">{{ cat.title }}</span></a>
         {% endfor %}
         <a class="text-decoration-none" href="/admin/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Login</span></a>
       </nav>
@@ -80,11 +80,11 @@
       <div class="hex-pattern d-flex align-items-center" style="min-height:50vh">
         <div>
           <h2 class="text-light text-center">Neuigkeiten</h2>
-          <div class="d-flex flex-row p-4 justify-content-around">
+          <div class="d-flex flex-row p-4 justify-content-between">
             {% for article in news %}
-            <div class="p-4 shadow-sm w-25 background-primary rounded-5 animate fadeIn" style="--primary-lightness:20%;">
-              <p class="fs-5 text-light">{{ article.title }}</p>
-              <p class="text-light">{{ article.content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
+            <div class="p-4 card shadow-sm w-50 background-primary animate fadeIn m-0" style="--primary-lightness:20%;">
+              <div class="card-header background-primary" style="--primary-lightness:10%;"><p class="fs-5 text-light">{{ article.title }}</p></div>
+              <div class="card-body"><p class="text-light">{{ article.content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a></div>
             </div>
             {% endfor %}
           </div>

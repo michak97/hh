@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from news.models import News
 from index.models import Teaser, TeaserIcon, IndexCard
+from datetime import datetime
 from articles.models import Category, Article
 from administration.models import Logo
 from django.utils.safestring import mark_safe
 
 def index(request):
     teaser = Teaser.objects.all().first()
-    articles= Article.objects.filter(draft=False, is_published=True)
+    articles= Article.objects.filter(draft=False, is_published=True, end_date__date__lte=datetime.now())
     categories = Category.objects.all()
     indexcards = IndexCard.objects.all()
     for card in indexcards:

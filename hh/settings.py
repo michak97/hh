@@ -30,7 +30,14 @@ env = environ.Env()
 
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="")
 
+<<<<<<< HEAD
 DEBUG = False
+=======
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+>>>>>>> 052a1d5 (FEAT: few features for hh)
 
 ALLOWED_HOSTS = ["*"]
 
