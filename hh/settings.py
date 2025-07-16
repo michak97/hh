@@ -33,11 +33,12 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="")
 DEBUG = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
-ALLOWED_HOSTS = ['hh.localhost', 'huh-rostock.de']
+ALLOWED_HOSTS = ['hh.localhost', 'huh-rostock.de', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
         'https://hh.localhost',
         'https://huh-rostock.de',
+        'https://127.0.0.1'
 ]
 
 STATIC_ROOT = str(ROOT_DIR("staticfiles"))
@@ -51,8 +52,8 @@ STATICFILES_FINDERS = (
 
 SITE_ID=1
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL='/media/'
-MEDIA_ROOT = BASE_DIR /'media'
 
 # Application definition
 
