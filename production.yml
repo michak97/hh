@@ -27,7 +27,6 @@ services:
       - .:/app
       - static_files:/app/staticfiles
       - tmp_files:/app/tmp
-    user: django
     depends_on:
       - mysql
     command: /gunicorn.sh

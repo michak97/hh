@@ -14,13 +14,11 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsInportant=false \
     && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -g 2000 django \
-    && useradd -ms /bin/bash -g django django
-
 COPY . /app
 
 RUN if [ ! -d "app/staticfiles" ]; then mkdir app/staticfiles; fi 
-RUN chown -R django /app
+RUN if [ ! -d "app/staticfiles" ]; then mkdir app/staticfiles; fi 
+
 RUN chmod -R 777 app/staticfiles/
 
 RUN uv pip install --system --upgrade pip \
@@ -31,9 +29,7 @@ COPY ./compose/django/entrypoint.sh /entrypoint.sh
 RUN sed -i 's/\r//' /entrypoint.sh \
     && sed -i 's/\r//' /gunicorn.sh \
     && chmod +x /entrypoint.sh \
-    && chown django /entrypoint.sh \
-    && chmod +x /gunicorn.sh \
-    && chown django /gunicorn.sh
+    && chmod +x /gunicorn.sh 
 
 USER root
 
