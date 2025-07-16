@@ -30,10 +30,15 @@ env = environ.Env()
 
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="")
 
-DEBUG = False
+DEBUG = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['hh.localhost', 'huh-rostock.de']
+
+CSRF_TRUSTED_ORIGINS = [
+        'https://hh.localhost',
+        'https://huh-rostock.de',
+]
 
 STATIC_ROOT = str(ROOT_DIR("staticfiles"))
 STATIC_URL="/app/static/"

@@ -9,15 +9,11 @@ RUN apt-get update \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Kopiere nginx-Konfiguration
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD nginx-dev.conf /etc/nginx/nginx-dev.conf
+ADD nginx-dev.conf /etc/nginx/nginx.conf
 RUN rm -rf /etc/nginx/.htpasswd
 
-ARG ENVIRONMENT
-RUN if [ $ENVIRONMENT = local ]; then mv /etc/nginx/nginx-dev.conf /etc/nginx/nginx.conf; fi
-
-COPY *.key /etc/ssl/private/
-COPY *.cer /etc/ssl/certs/
+ADD *.key /etc/ssl/private/
+COPY *.crt /etc/ssl/certs/
 
 ARG HTTP_AUTH_LOGIN
 ARG HTTP_AUTH_PASSWORD

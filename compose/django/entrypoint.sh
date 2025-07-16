@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-cmd="$@"
 
 export DATABASE_URL=mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql:3306/$MYSQL_DATABASE
 
@@ -23,4 +22,7 @@ until db_ready; do
 done
 
 >&2 printf $"\u2714 Database is Up \n"
-exec $cmd
+
+python /app/manage.py migrate
+python /app/manage.py collectstatic --noinput
+python manage.py runserver 0.0.0.0:5000

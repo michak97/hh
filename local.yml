@@ -18,40 +18,36 @@ services:
   django:
     build:
       context: .
-      dockerfile: ./compose/django/Dockerfile
-      args:
-        - PRIV_SSH_KEY
-        - GIT_ECDSA_KEY_FINGERPRINT
+      dockerfile: ./compose/django/Dockerfile-dev
     image: hh_django
+    command: ./compose/django/start-dev.sh
     volumes:
       - .:/app
       - static_files:/app/staticfiles
       - tmp_files:/app/tmp
-    user: django
     depends_on:
       - mysql
-    command: /gunicorn.sh
     env_file: .env
     environment:
-      - ENVIRONMENT=production
+      - ENVIRONMENT=local
     restart: unless-stopped
 
   nginx:
     build:
       context: ./compose/nginx/
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile-dev
       args:
         - HTTP_AUTH_LOGIN=$HTTP_AUTH_LOGIN
         - HTTP_AUTH_PASSWORD=$HTTP_AUTH_PASSWORD
-        - ENVIRONMENT=production
+        - ENVIRONMENT=development
     volumes:
       - static_files:/app/staticfiles
       - media:/app/media
     depends_on:
       - django
     ports:
-      - "0.0.0.0:8000:8000"
       - "0.0.0.0:80:80"
       - "0.0.0.0:81:81"
       - "0.0.0.0:88:88"
       - "0.0.0.0:443:443"
+
