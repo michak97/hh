@@ -15,6 +15,6 @@ def index(request):
         card.svg=card.image.svg.open('r').read()
     logo = Logo.objects.first()
     news = News.objects.all()
-    return render(request, 'index/index.html', {"articles":articles, "categories": categories, "teaser": teaser, "logo": logo, "indexcards": indexcards, "news": news})
+    return render(request, 'index/index.html', {"articles":articles, "categories": categories, "teaser": teaser, "logo": logo.svg_file.open('r').read()o, "indexcards": indexcards, "news": news})
 
 # Create your views here.
