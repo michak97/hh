@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 
 urlpatterns = [
-    path("articles", include("articles.urls")),
+    path("articles/", include("articles.urls")),
     path("news/", include("news.urls")),
     path("", include("index.urls")),
     path('admin/', admin.site.urls),

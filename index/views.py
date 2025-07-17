@@ -8,10 +8,8 @@ from django.utils.safestring import mark_safe
 
 def index(request):
     teaser = Teaser.objects.all().first()
-    articles= Article.objects.filter(draft=False, is_published=True, end_date__date__lte=datetime.now())
+    articles= Article.objects.filter(draft=False, is_published=True, end_date__date__gte=datetime.now())
     categories = Category.objects.all()
-    for category in categories:
-        category.articles = category.article.filter(draft=False, is_published=True, end_date__date__lte=datetime.now())
     indexcards = IndexCard.objects.all()
     for card in indexcards:
         card.svg=card.image.svg.open('r').read()
