@@ -22,7 +22,7 @@ class ArticleTemplate(models.Model):
 class Article(models.Model):
     template = models.ForeignKey(ArticleTemplate, on_delete=models.CASCADE, verbose_name="Design", null=True, blank=True)
     writer = models.ForeignKey(User, on_delete = models.PROTECT, verbose_name="Autor")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Kategorie")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Kategorie", related_name="article")
     title = models.CharField(max_length=200, verbose_name="Titel")
     content = tinymce.HTMLField(max_length=2048, verbose_name="Inhalt")
     pub_date = models.DateTimeField(verbose_name="Veröffentlichungsdatum")

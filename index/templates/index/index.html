@@ -36,10 +36,19 @@
       <a role="button" class="vw-100">Blubb</a>
     </nav>
     <div>
-      <nav id="nav-menu" class="animate fadeInLeft z-3 p-2 m-3 shadow-sm d-none d-md-block position-absolute flex-row top-0 background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
+      <nav id="nav-menu" class="animate fadeInLeft z-3 p-2 m-3 shadow-sm d-none d-md-flex position-absolute flex-row top-0 background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
         <a class="text-decoration-none" href="/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Home</span></a>
         {% for cat in categories %}
-        <a class="animate fadeInLeft text-decoration-none" data-bs-><span class="text-decoration-none color-secondary fs-5 mx-2" style="--primary-chroma:30;--primary-lightness:70%">{{ cat.title }}</span></a>
+        <div class="dropdown">
+          <a href="#" class="text-decoration-none" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="text-decoration-none color-secondary fs-5 mx-2" style="--primary-chroma:30;--primary-lightness:70%">{{ cat.title }}</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for subcat in cat.article.all %}
+            <li><a class="dropdown-item" href="{{ subcat.get_absolute_url }}">{{ subcat.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
         {% endfor %}
         <a class="text-decoration-none" href="/admin/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Login</span></a>
       </nav>
@@ -58,7 +67,7 @@
             <span class="animate fadeIn fs-2 fw-bold" style="--transition-delay:0.3s;">{{ teaser.text }}</span>
             <span class="animate fadeIn fs-3" style="--transition-delay:0.45s;">{{ teaser.description }}</span>
           </div>
-          <a class="animate fadeIn btn btn-lg btn-primary m-4" style="--transition-delay:0.6s;">Weiterlesen</a>
+          <a href="{% url random_article.get_absolute_url %}" class="animate fadeIn btn btn-lg btn-primary m-4" style="--transition-delay:0.6s;">Weiterlesen</a>
         </div>
       </div>
       {% endif %}
