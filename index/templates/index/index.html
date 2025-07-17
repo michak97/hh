@@ -86,17 +86,15 @@
       </div>
       {% endif %}
       {% if news %}
-      <div class="hex-pattern d-flex align-items-center" style="min-height:50vh">
-        <div>
+      <div class="hex-pattern d-flex align-items-center flex-column" style="">
           <h2 class="text-light text-center">Neuigkeiten</h2>
-          <div class="d-flex flex-row p-4 justify-content-between">
+          <div class="d-flex flex-row p-4 justify-content-between w-100">
             {% for article in news %}
-            <div class="p-4 card shadow-sm w-50 background-primary animate fadeIn m-0" style="--primary-lightness:20%;">
+            <div class="p-4 card shadow-sm w-50 background-primary animate fadeIn m-3" style="--primary-lightness:20%;">
               <div class="card-header background-primary" style="--primary-lightness:10%;"><p class="fs-5 text-light">{{ article.title }}</p></div>
               <div class="card-body"><p class="text-light">{{ article.content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a></div>
             </div>
             {% endfor %}
-          </div>
         </div>
       </div>
       {% endif %}
@@ -130,16 +128,6 @@
           </div>
         </div>
       </div>
-      {% if news %}
-      <div class="d-flex flex-row flex-wrap p-3 justify-content-around background-primary hex-pattern">
-        {% for article in news %}
-        <div class="p-4 shadow-sm w-25 background-primary rounded-5 animated fadeInLeft" style="--primary-lightness:20%;">
-          <p class="fs-5 text-light">{{ article.title }}</p>
-          <p class="text-light">{{ article.content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
     </div>
     {% endblock %}
     {% comment %}
