@@ -40,6 +40,6 @@ class Article(models.Model):
         return strip_tags(self.content)
 
 class ArticleImage(models.Model):
-    article= models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name="Artikel")
+    article= models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name="Artikel", related_name="article_images")
     image = models.ImageField(upload_to="article_images", verbose_name="Bild")
     caption = models.CharField(max_length=200, verbose_name="Bildunterschrift", blank=True, null=True)

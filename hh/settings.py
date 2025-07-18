@@ -87,8 +87,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'hh.urls'
 
-TINYMCE_JS_URL = os.path.join(STATIC_URL, "js/tiny_mce.js")
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

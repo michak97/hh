@@ -25,6 +25,7 @@ services:
     image: hh_django
     volumes:
       - .:/app
+      - media:/app/media
       - static_files:/app/staticfiles
       - tmp_files:/app/tmp
     depends_on:

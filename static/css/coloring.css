@@ -5,6 +5,9 @@
 	--opacity:1;
 	--secondary-hue: 60;
 	--tertiary-hue: 150;
+  --pattern-lightness: 5%;
+  --pattern-chroma: 35%;
+  --pattern-secondary-lightness: 10%;
 }
 .color-primary{
 	color: lch( var(--primary-lightness) var(--primary-chroma) var(--primary-hue));
@@ -42,8 +45,8 @@ body{
 }
 .hex-pattern {
   --s: 10px; /* control the size*/
-  --c1: lch( 5 35 var(--primary-hue) / 1);
-  --c2: lch( 10 35 var(--primary-hue) / 1);
+  --c1: lch( var(--pattern-lightness) var(--pattern-chroma) var(--primary-hue) / 1);
+  --c2: lch( var(--pattern-secondary-lightness) var(--pattern-chroma) var(--primary-hue) / 1);
   
   --c:#0000,var(--c1) .5deg 119.5deg,#0000 120deg;
   --g1:conic-gradient(from  60deg at 56.25% calc(425%/6),var(--c));

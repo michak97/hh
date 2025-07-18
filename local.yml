@@ -24,6 +24,7 @@ services:
     volumes:
       - .:/app
       - static_files:/app/staticfiles
+      - media:/app/media
       - tmp_files:/app/tmp
     depends_on:
       - mysql

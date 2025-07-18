@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db import models
 from .models import News, NewsTemplate
 
 admin.site.register(News)

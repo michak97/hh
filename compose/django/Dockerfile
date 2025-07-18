@@ -17,9 +17,10 @@ RUN apt-get update \
 COPY . /app
 
 RUN if [ ! -d "app/staticfiles" ]; then mkdir app/staticfiles; fi 
-RUN if [ ! -d "app/staticfiles" ]; then mkdir app/staticfiles; fi 
+RUN if [ ! -d "app/media" ]; then mkdir app/media; fi 
 
 RUN chmod -R 777 app/staticfiles/
+RUN chmod -R 777 app/media/
 
 RUN uv pip install --system --upgrade pip \
     && uv pip install --no-cache-dir --system -r /app/pyproject.toml
