@@ -40,7 +40,7 @@
     </div>
     {% endif %}
     {% if indexcards %}
-    <div class="vw-100 d-flex flex-row justify-content-between hex-pattern" style="height:50vh; --pattern-lightness:2%;">
+    <div class="vw-100 d-flex flex-row justify-content-between hex-pattern" style="--pattern-lightness:4%;">
       <div class="d-flex flex-row my-4 justify-content-center align-items-center vw-100 text-light text-white">
         {% for card in indexcards %}
         <div class="animate d-flex flex-column justify-content-between align-items-center fadeInLeft svg-fixed my-4 p-4" style="border-radius:20px;--primary-chroma:30;--primary-lightness:80%;--transition-delay: 0.{{ forloop.counter }}s">
@@ -54,8 +54,8 @@
     </div>
     {% endif %}
     {% if news %}
-      <div class="p-4 hex-pattern" style="--pattern-lightness:2%;">
-        <h2 class="text-light text-center">Neuigkeiten</h2>
+      <div class="p-4 hex-pattern" style="--pattern-lightness:3%;">
+        <h2 class="text-light text-center animate fadeInLeft">Neuigkeiten</h2>
         <div class="p-4 carousel slide d-flex justify-content-center" data-bs-ride="carousel">
           <div class="carousel-inner w-50">
           {% for article in news %}
