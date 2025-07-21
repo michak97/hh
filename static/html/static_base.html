@@ -38,6 +38,14 @@
     </nav>
     <nav id="nav-menu" class="animate fadeInLeft z-3 p-2 m-3 shadow-sm d-none d-md-flex position-absolute flex-row top-0 background-primary" style="--opacity:0.4;backdrop-filter:blur(5px);-webkit-backdrop-filter: blur(5px);">
       <a class="text-decoration-none" href="/"><span class="color-secondary fs-5 mx-2 text-decoration-none" style="--primary-chroma:30;--primary-lightness:70%">Home</span></a>
+      <div class="dropdown">
+        <a class="text-decoration-none" href="#" data-bs-toggle="dropdown" aria-expanded="false"><span class="color-secondary fs-5 mx-2 text-decoration-none mx-2" style="--primary-chroma:30;--primary-lightness:70%">Neuigkeiten</span></a>
+        <ul class="dropdown-menu">
+        {% for article in news %}
+          <li><a class="dropdown-item" href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+        {% endfor %}
+        </div>
+      </div>
       {% for cat in categories %}
       <div class="dropdown">
         <a href="#" class="text-decoration-none" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
