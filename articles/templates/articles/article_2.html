@@ -4,6 +4,7 @@
 </div>
 <div class="hex-pattern d-flex flex-row align-items-center w-100 justify-content-around p-4" style="--primary-lightness:100%;--primary-chroma:0">
   <div class="d-flex flex-row justify-content-center w-75">
+    <div class="d-flex flex-column justify-content-center align-items-center">
   <div class="animate fadeIn p-4 z-1" style="">
     <h1 class="text-light" style="--transition-delay:0.1s;text-wrap:nowrap">{{ article.category.title }}</h1>
     <h2 class="text-light" style="--transition-delay:0.2s;">{{ article.title }}</h2>
@@ -12,27 +13,28 @@
     <span class="my-2 text-light" style="--transition-delay:0.3s;"><i class="fas fa-clock"></i><span id="read_time" class="px-2">0</span><span></span>min</span>
     {% endif %}
   </div>
-  <div class="text-white background-primary p-4 animate fadeIn mx-2" style="--primary-lightness:5%;--primary-chroma:20;height:100%;width:50%;">
+  <div class="text-white background-primary p-4 animate fadeIn mx-4" style="--primary-lightness:5%;--primary-chroma:20;height:100%;">
     <div id="article" class="px-4" style="">
       {{ article.content|safe }}
     </div>
   </div>
   </div>
+  </div>
   <div class="d-flex flex-column justify-content-center align-items-center hex-pattern p-4 w-25" style="--pattern-lightness:2%; --pattern-secondary-lightness:1%">
   {% for image in article.article_images.all %}
-  <img style="max-height:400px" src="/media/{{ image.image }}" alt={{image.caption}}>
+  <img style="width:-moz-available" src="/media/{{ image.image }}" alt={{image.caption}}>
   {% endfor %}
   </div>
 </div>
-<div class="w-100 d-flex flex-row justify-content-center align-items-center hex-pattern" style="min-height:100vh">
+<div class="w-100 d-flex flex-row justify-content-center align-items-center hex-pattern border-top border-bottom py-4" style="border-color:black;--pattern-lightness:1%;">
   <div class="p-4 hex-pattern w-100" style="--primary-lightness:5%;">
     <h2 class="animate fadeIn text-white text-center">Weitere Artikel</h2>
     <div class="animate fadeIn d-flex flex-row justify-content-around align-items-center p-4">
       {% for article in further_articles %}
-      <div class="background-primary rounded animate fadeIn p-4 text-white m-3" style="width:30%;--primary-lightness:20%;--transition-delay:0.{{forloop.counter}}s">
-        <h3 class="text-white">{{article.title}}</h3>
+      <div class="card animate fadeIn p-4 m-3" style="width:30%;--primary-lightness:20%;--transition-delay:0.{{forloop.counter}}s">
+        <h3 class="animate fadeIn">{{article.title}}</h3>
         <hr>
-        <p class="text-white">{{ article.stripped_content|truncatechars:"200" }}</p><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a>
+        <p class="animate fadeIn">{{ article.stripped_content|truncatechars:"200"|safe }}</p><span class="btn background-primary animate fadeIn"><a class="text-light" href="{{ article.get_absolute_url }}">weiterlesen</a></span>
       </div>
       {% endfor %}
     </div>

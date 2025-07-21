@@ -54,21 +54,19 @@
     </div>
     {% endif %}
     {% if news %}
-    <div class="align-items-center justify-content-center vh-50 d-flex flex-row" style="">
-      <div class="w-25 vh-50 hex-pattern" style="--pattern-lightness:1%"></div>
-      <div class="w-50 vh-50 d-flex flex-column align-items-center hex-pattern justify-content-center" style="--pattern-lightness:2%;">
+      <div class="p-4 hex-pattern" style="--pattern-lightness:2%;">
         <h2 class="text-light text-center">Neuigkeiten</h2>
-        <div class="d-flex flex-row p-4 justify-content-center w-100">
+        <div class="p-4 carousel slide d-flex justify-content-center" data-bs-ride="carousel">
+          <div class="carousel-inner w-50">
           {% for article in news %}
-          <div class="p-4 card shadow-sm w-25 animate fadeIn m-3" style="">
+          <div class="card rounded-0 carousel-item {% if forloop.first %}active{% endif %}" style="">
             <div class="card-header" style="--primary-lightness:10%;"><p class="fs-5">{{ article.title }}</p></div>
-            <div class="card-body"><p class="">{{ article.content|truncatechars:"200" }}</p><a class="text-decoration-none animate" href="{{ article.get_absolute_url }}">weiterlesen</a></div>
+            <div class="card-body"><p class="">{{ article.content|truncatechars:"200" }}</p><span class="p-2 background-primary"><a class="text-decoration-none text-white" href="{{ article.get_absolute_url }}">weiterlesen</a></span></div>
           </div>
           {% endfor %}
+          </div>
         </div>
       </div>
-      <div class="w-25 vh-50 hex-pattern" style="--pattern-lightness:1%"></div>
-    </div>
     {% endif %}
     {% endblock %}
     {% comment %}
